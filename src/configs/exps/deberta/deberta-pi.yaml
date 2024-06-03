@@ -1,0 +1,30 @@
+required_resources:
+   roberta-base:  "s3://ANONYMOUS/roberta-base"
+   huggingface: "s3://ANONYMOUS/huggingface"
+remote_zoo_dir: "s3://ANONYMOUS/local_models_zoo"
+load_from_zoo_use_remote: false
+resource_dir: "/path_to_save_results/resources_enternal"
+push_to_remote_zoo: false
+push_to_local_zoo: true
+
+merger:
+  algo: 'pi'
+  attn_patterns:
+      pattern0:
+        pi_filter_regex: ['.*layer\.\d+\.attention'] 
+        query: 'self.query_proj'
+        key: 'self.key_proj'
+        value: 'self.value_proj'
+        output: 'output.dense'
+  ffn_patterns:
+      pattern0:
+        pi_filter_regex: ['.*layer\.\d+'] 
+        intermediate: 'intermediate.dense'
+        output: 'output.dense'
+
+
+output_dir_keys: ["pi"]
+pi: "{True}"
+
+tokenizer: "microsoft/deberta-v3-large"
+model_type: microsoft/deberta-v3-large

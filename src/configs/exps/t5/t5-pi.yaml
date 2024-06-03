@@ -1,0 +1,30 @@
+required_resources:
+   roberta-base:  "s3://ANONYMOUS/roberta-base"
+   huggingface: "s3://ANONYMOUS/huggingface"
+remote_zoo_dir: "s3://ANONYMOUS/local_models_zoo"
+load_from_zoo_use_remote: false
+resource_dir: "/path_to_save_results/resources_enternal"
+push_to_remote_zoo: false
+push_to_local_zoo: true
+
+merger:
+  algo: 'pi'
+  attn_patterns:
+      pattern0:
+        pi_filter_regex: ['.*layer\.\d+\.SelfAttention'] 
+        query: 'q'
+        key: 'k'
+        value: 'v'
+        output: 'o'
+  ffn_patterns:
+      pattern0:
+        pi_filter_regex: ['.*layer\.\d+\.DenseReluDense'] 
+        intermediate: 'wi_1'
+        output: 'wo'
+
+
+output_dir_keys: ["pi"]
+pi: "{True}"
+
+tokenizer: "google/t5-v1_1-base"
+model_type: google/t5-v1_1-base
