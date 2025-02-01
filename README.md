@@ -1,4 +1,4 @@
-# Beyond the Permutation Symmetry of Transform
+# Beyond the Permutation Symmetry of Transformers
 This repository contains the code used in our experiments, which is based on the code of [Jin et al.](https://github.com/bloomberg/dataless-model-merging)
 
 ## Abstract
