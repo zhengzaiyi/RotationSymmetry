@@ -1,0 +1,40 @@
+merger:
+  algo: 'pi'
+  attn_patterns:
+      pattern0:
+        pi_filter_regex: ['.*layer\.\d+\.attention'] 
+        query: 'self.query_proj'
+        key: 'self.key_proj'
+        value: 'self.value_proj'
+        output: 'output.dense'
+  ffn_patterns:
+      pattern0:
+        pi_filter_regex: ['.*layer\.\d+'] 
+        intermediate: 'intermediate.dense'
+        output: 'output.dense'
+
+  ot_patterns:
+    pattern0:
+      ot_filter_regex: ['.*layer\.\d+$'] # roberta layer.2.
+      ot_lin1: 'intermediate.dense'
+      ot_lin2: 'output.dense'
+
+  ot_params:
+    ground_metric: "euclidean"
+    ground_metric_normalize: "none"
+    reg: 0.01
+    not_squared: true
+    ground_metric_eff: true
+    debug: true
+    clip_min: 0.0
+    clip_max: 5.0
+    geom_ensemble_type: "wts"
+    normalize_wts: true
+    clip_gm: false
+    dist_normalize: false
+    activation_histograms: false
+    act-num-samples: 100
+    exact: true
+    correction: true
+    proper_marginals: false
+    past_correction: true
